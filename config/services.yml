@@ -1,0 +1,11 @@
+services:
+    bb3mobi.TopicsArticles.listener:
+        class: bb3mobi\TopicsArticles\event\listener
+        arguments:
+            - @dbal.conn
+            - @template
+            - @request
+            - @user
+            - @auth
+        tags:
+            - { name: event.listener }

@@ -1,0 +1,38 @@
+/* bb3.mobi Modification viewtopic style */
+#post-article .postbody { width: 100%!important; }
+#post-article .postbody h3 { display: none; }
+#post-article ul.post-buttons { padding-bottom: 0px; margin-bottom: 0; }
+#mini-profile { display: inline-block; margin-left: 8px; }
+#mini-profile.left-box { width: 76%; }
+#mini-profile .right-box { margin-top: 8px; padding-left: 2px; border-left: 1px solid #fff; }
+@media only screen and (max-width: 500px), only screen and (max-device-width: 500px) {
+#mini-profile .right-box { display: none; }
+}
+/* Imageset forum new icon */
+.article_moved {
+	background-image: url("./images/article_moved.gif");
+}
+.article_read, .article_read_hot {
+	background-image: url("./images/article_read.gif");
+}
+.article_read_mine, .article_read_hot_mine  {
+	background-image: url("./images/article_read_mine.gif");
+}
+.article_read_locked {
+	background-image: url("./images/article_read_locked.gif");
+}
+.article_read_locked_mine {
+	background-image: url("./images/article_read_locked_mine.gif");
+}
+.article_unread, .article_unread_hot {
+	background-image: url("./images/article_unread.gif");
+}
+.article_unread_mine, .article_unread_hot_mine {
+	background-image: url("./images/article_unread_mine.gif");
+}
+.article_unread_locked {
+	background-image: url("./images/article_unread_locked.gif");
+}
+.article_unread_locked_mine {
+	background-image: url("./images/article_unread_locked_mine.gif");
+}

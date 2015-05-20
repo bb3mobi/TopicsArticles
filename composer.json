@@ -1,0 +1,30 @@
+{
+    "name": "bb3mobi/TopicsArticles",
+    "type": "phpbb-extension",
+    "description": "Display topics as articles",
+    "homepage": "http://phpbbguru.net",
+    "version": "0.0.1",
+    "time": "2014-10-27",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Палыч",
+            "homepage": "http://phpbbguru.net/community/",
+            "role": "Developer"
+        },
+        {
+            "name": "Anvar",
+            "homepage": "http://bb3.mobi",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "extra": {
+        "display-name": "Topics as articles",
+        "soft-require": {
+            "phpbb/phpbb": "3.1.*@dev"
+        }
+    }
+}

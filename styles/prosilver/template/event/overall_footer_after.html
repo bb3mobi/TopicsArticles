@@ -1,0 +1,12 @@
+<!-- IF L_TOPIC_ARTICLE -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#post-article').wrap('<div class="forumbg"></div>');
+	$('#post-article h3').replaceWith('<ul class="linklist left-box"></ul>');
+	$('#post-article .linklist').html($(".action-bar.bottom .dropdown-contents").html());
+	$('#post-article li.icon-pss-right, #post-article li.icon-pss-left, #post-article dl.details').remove();
+	$('#mini-profile .dropdown, #mini-profile .dropdown-contents').unwrap();
+	$('#mini-profile .profile-contact strong, #mini-profile .dropdown-trigger').hide();
+});
+</script>
+<!-- ENDIF -->
