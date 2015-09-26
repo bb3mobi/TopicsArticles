@@ -94,6 +94,7 @@ class listener implements EventSubscriberInterface
 			$topic_img_style = str_replace(array("topic_", "announce_", "sticky_"), " article_", $topic_row['TOPIC_IMG_STYLE']);
 			if ($topic_row['TOPIC_IMG_STYLE'] != $topic_img_style)
 			{
+				$this->template->assign_var('S_TOPIC_ARTICLE', true);
 				$topic_row['TOPIC_IMG_STYLE'] .= $topic_img_style;
 				$event['topic_row'] = $topic_row;
 			}
