@@ -12,8 +12,8 @@ $(document).ready(function() {
 	$('.post:eq(0).online').each(function() {
 		$('.postprofile:eq(0)').addClass("online");
 		$(this).removeClass("online");
-	});*/ 
-	$('#post-article li.icon-pss-right, #post-article li.icon-pss-left, #post-article dl.details').remove();
+	});*/
+	$('#post-article li.icon-pss-right, #post-article li.icon-pss-left').remove(); // Profile Side Switcher fix
 	$('#mini-profile .dropdown, #mini-profile .contact-icons').unwrap();
 	$('#mini-profile .profile-contact strong, #mini-profile .dropdown-trigger').hide();
 	//$('#post-article').append($('.topic_poll')); // Poll in article
