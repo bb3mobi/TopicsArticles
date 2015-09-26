@@ -67,9 +67,8 @@ class listener implements EventSubscriberInterface
 		if ($this->auth->acl_get('f_article', $forum_id) && ($mode == 'post' || ($mode == 'edit' && $post_id == $post_data['topic_first_post_id'])))
 		{
 			$this->user->add_lang_ext('bb3mobi/TopicsArticles', 'info_acp_topic_article');
-			$t_article = (!$this->request->variable('topic_type_article', 1)) ? $post_data['topic_type_article'] : 0;
 			$this->template->assign_vars(array(
-				'S_TOPIC_ARTICLES_CHECKED'	=> ($t_article) ? ' checked="checked"' : '',
+				'S_TOPIC_ARTICLES_CHECKED'	=> ($post_data['topic_type_article']) ? ' checked="checked"' : '',
 				'S_TOPIC_ARTICLE'			=> true)
 			);
 		}
