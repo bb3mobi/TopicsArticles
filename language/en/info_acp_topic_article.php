@@ -23,6 +23,10 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'L_TOPIC_ARTICLE'	=> 'Article',
-	'ACL_F_ARTICLE'		=> 'Can assign topics as Article',
+	'TOPIC_ARTICLE'			=> 'Article',
+	'TOPIC_ARTICLE_POST'	=> '<a href="http://bb3.mobi/forum/viewtopic.php?t=41"><span>Board article</span></a>',
+	'TOPIC_ARTICLE_LINK'	=> 'Link',
+	'TOPIC_ARTICLE_BBCODE'	=> 'BBCode',
+	'TOPIC_ARTICLE_HTML'	=> 'HTML',
+	'ACL_F_ARTICLE'			=> 'Can assign topics as Article',
 ));

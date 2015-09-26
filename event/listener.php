@@ -31,29 +31,28 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
-			'core.submit_post_end'				=> 'submit_post_end',
+			'core.submit_post_modify_sql_data'	=> 'submit_post_modify_sql_data',
 			'core.posting_modify_template_vars'	=> 'posting_modify_template_vars',
 			'core.viewtopic_modify_page_title'	=> 'viewtopic_article_type',
 			'core.viewforum_modify_topicrow'	=> 'modify_icon_viewtopic',
 		);
 	}
 
-	public function submit_post_end($event)
+	public function submit_post_modify_sql_data($event)
 	{
 		$data = $event['data'];
-		$mode = $event['mode'];
-		if (($mode == 'edit' && $data['post_id'] == $data['topic_first_post_id']) || $mode == 'post')
+		$mode = $event['post_mode'];
+		if (($mode != 'reply' && $data['post_id'] == $data['topic_first_post_id']) || $mode == 'post')
 		{
-			global $post_data;
+			$sql_data = $event['sql_data'];
 
-			$topic_type_article = (!$this->request->variable('topic_type_article', 1)) ? 1 : 0;
-			$post_data_article = (isset($post_data['topic_type_article'])) ? $post_data['topic_type_article'] : 0;
-			if ($topic_type_article != $post_data_article && $this->auth->acl_get('f_article', $data['forum_id']))
+			$t_article = (!$this->request->variable('topic_type_article', 1)) ? 1 : 0;
+			if ($this->auth->acl_get('f_article', $data['forum_id']))
 			{
-				$sql = 'UPDATE ' . TOPICS_TABLE . '
-					SET topic_type_article = ' . $topic_type_article . '
-					WHERE topic_id = ' . $data['topic_id'];
-				$this->db->sql_query($sql);
+				$sql_data[TOPICS_TABLE]['sql'] = array_merge($sql_data[TOPICS_TABLE]['sql'], array(
+					'topic_type_article'	=> $t_article)
+				);
+				$event['sql_data'] = $sql_data;
 			}
 		}
 	}
@@ -68,9 +67,10 @@ class listener implements EventSubscriberInterface
 		if ($this->auth->acl_get('f_article', $forum_id) && ($mode == 'post' || ($mode == 'edit' && $post_id == $post_data['topic_first_post_id'])))
 		{
 			$this->user->add_lang_ext('bb3mobi/TopicsArticles', 'info_acp_topic_article');
+			$t_article = (!$this->request->variable('topic_type_article', 1)) ? $post_data['topic_type_article'] : 0;
 			$this->template->assign_vars(array(
-				'L_TOPIC_ARTICLE'			=> $this->user->lang['L_TOPIC_ARTICLE'],
-				'S_TOPIC_ARTICLES_CHECKED'	=> (!empty($post_data['topic_type_article'])) ? ' checked="checked"' : '')
+				'S_TOPIC_ARTICLES_CHECKED'	=> ($t_article) ? ' checked="checked"' : '',
+				'S_TOPIC_ARTICLE'			=> true)
 			);
 		}
 	}
@@ -81,7 +81,7 @@ class listener implements EventSubscriberInterface
 		if ($topic_data['topic_type_article'])
 		{
 			$this->user->add_lang_ext('bb3mobi/TopicsArticles', 'info_acp_topic_article');
-			$this->template->assign_var('L_TOPIC_ARTICLE', $this->user->lang['L_TOPIC_ARTICLE']);
+			$this->template->assign_var('S_TOPIC_ARTICLE', true);
 		}
 	}
 
