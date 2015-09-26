@@ -2,7 +2,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$('#post-article h3').replaceWith('<ul class="linklist left-box"></ul>');
-	$('.postprofile:eq(0)').addClass("left_side_article");
 	//$('#post-article .linklist').html($(".action-bar.bottom .dropdown-contents").html()); // Old
 	$('.action-bar.bottom .topic-tools .dropdown-contents:eq(0)').each(function() {
 		$('#post-article .linklist').append($(this).find('li'));
