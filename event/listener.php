@@ -13,15 +13,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class listener implements EventSubscriberInterface
 {
-	protected $db;
 	protected $template;
+
 	protected $request;
+
 	protected $user;
+
 	protected $auth;
 
-	public function __construct(\phpbb\db\driver\driver_interface $db, \phpbb\template\template $template, \phpbb\request\request $request, \phpbb\user $user, \phpbb\auth\auth $auth)
+	public function __construct(\phpbb\template\template $template, \phpbb\request\request $request, \phpbb\user $user, \phpbb\auth\auth $auth)
 	{
-		$this->db = $db;
 		$this->template = $template;
 		$this->request = $request;
 		$this->user = $user;
@@ -35,6 +36,7 @@ class listener implements EventSubscriberInterface
 			'core.posting_modify_template_vars'	=> 'posting_modify_template_vars',
 			'core.viewtopic_modify_page_title'	=> 'viewtopic_article_type',
 			'core.viewforum_modify_topicrow'	=> 'modify_icon_viewtopic',
+			'core.permissions'					=> 'add_permission',
 		);
 	}
 
@@ -68,7 +70,7 @@ class listener implements EventSubscriberInterface
 		{
 			$this->user->add_lang_ext('bb3mobi/TopicsArticles', 'info_acp_topic_article');
 			$this->template->assign_vars(array(
-				'S_TOPIC_ARTICLES_CHECKED'	=> ($post_data['topic_type_article']) ? ' checked="checked"' : '',
+				'S_TOPIC_ARTICLES_CHECKED'	=> (!empty($post_data['topic_type_article'])) ? ' checked="checked"' : '',
 				'S_TOPIC_ARTICLE'			=> true)
 			);
 		}
@@ -77,7 +79,7 @@ class listener implements EventSubscriberInterface
 	public function viewtopic_article_type($event)
 	{
 		$topic_data = $event['topic_data'];
-		if ($topic_data['topic_type_article'])
+		if (!empty($topic_data['topic_type_article']))
 		{
 			$this->user->add_lang_ext('bb3mobi/TopicsArticles', 'info_acp_topic_article');
 			$this->template->assign_var('S_TOPIC_ARTICLE', true);
@@ -98,5 +100,19 @@ class listener implements EventSubscriberInterface
 				$event['topic_row'] = $topic_row;
 			}
 		}
+	}
+
+	/**
+	 * Add permissions
+	 *
+	 * @param object $event The event object
+	 * @return null
+	 * @access public
+	 */
+	public function add_permission($event)
+	{
+		$permissions = $event['permissions'];
+		$permissions['f_article'] = array('lang' => 'ACL_F_ARTICLE', 'cat' => 'misc');
+		$event['permissions'] = $permissions;
 	}
 }
