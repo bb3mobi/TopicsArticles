@@ -24,7 +24,7 @@
     "extra": {
         "display-name": "Topics as articles",
         "soft-require": {
-            "phpbb/phpbb": "3.1.*@dev"
+            "phpbb/phpbb": ">=3.1.3-RC1,<3.2.0@dev"
         }
     }
 }
