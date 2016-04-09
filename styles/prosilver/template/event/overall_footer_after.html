@@ -12,6 +12,10 @@ $(document).ready(function() {
 		$('.postprofile:eq(0)').addClass("online");
 		$(this).removeClass("online");
 	});*/
+	/** Addon thank for posts */
+	$('#post-article .thanks-icon').on('click', function() {
+		document.location.href = $(this).attr('href');
+	});
 	$('#post-article li.icon-pss-right, #post-article li.icon-pss-left').remove(); // Profile Side Switcher fix
 	$('#mini-profile .dropdown, #mini-profile .contact-icons').unwrap();
 	$('#mini-profile .profile-contact strong, #mini-profile .dropdown-trigger').hide();
